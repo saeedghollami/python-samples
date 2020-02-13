@@ -1,24 +1,25 @@
-import shelve
 import pickle
+
 
 
 contacts = []
 
 
-# save contacts in a shelve file
+# save contacts in a pickle file
 def save_contacts(filename='contacts.db'):
-    with shelve.open(filename) as contact_db:
-        # create a key named 'contacts' in shelve file and bind all contact to it.
-        contact_db['contacts'] = contacts
+    with open(filename, 'wb') as contact_db:
+        # write contacts using pickle 
+        pickle.dump(contacts, contact_db)
 
 
-# read contacts from shelv file
+# read contacts from pickle file
 def load_contacts(filename='contacts.db'):
-    with shelve.open(filename) as contact_db:
-        for contact in contact_db['contacts']:
-            contacts.append(contact)
+    global contacts
+    with open(filename, 'rb') as contact_db:
+        contacts = pickle.load(contact_db)
 
 
+# get inputs from user 
 def get_info():
     first_name = input('First Name: ')
     last_name = input('Last Name: ')
@@ -26,6 +27,7 @@ def get_info():
     return first_name, last_name, phone_number
 
 
+# input id from user
 def get_id():
     try:
         idx = int(input('Contact ID: '))
@@ -34,6 +36,7 @@ def get_id():
         return False
 
 
+# get user infromation and create a contact with them
 def create_contact(info):
     first, last, phone = info
     contact = {'id': len(contacts)+1,  'first_name': first,
@@ -42,6 +45,7 @@ def create_contact(info):
     return True
 
 
+# get id of the contact and update it with new info
 def update_contact(idx):
     contact = find_contact(idx)
     if contact:
@@ -56,6 +60,7 @@ def update_contact(idx):
         return False
 
 
+# get id of contact if the contact exist, delete
 def delete_contact(idx):
     contact = find_contact(idx)
     if contact:
@@ -66,6 +71,7 @@ def delete_contact(idx):
         return False
 
 
+# get id of the contact and return contact if exist, else return False
 def find_contact(idx):
     for contact in contacts:
         cid, *_ = contact.values()
@@ -76,5 +82,5 @@ def find_contact(idx):
 
 if __name__ == "__main__":
     save_contacts()
-    # load_contacts()
+    load_contacts()
     # print(contacts)
