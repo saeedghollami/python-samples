@@ -82,11 +82,11 @@ def menu():
         '5': find_ui,
         '6': exit_app,
     }
-    # load saved contacts from the filename:opt
+    # load saved contacts from the filename:optional
     opr.load_contacts()
 
     while True:
-        os.system('clear')
+        os.system('cls') if os.name == 'nt' else os.system('clear')
         print(menu_items)
         respond = input('> ')
 

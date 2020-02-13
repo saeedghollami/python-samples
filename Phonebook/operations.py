@@ -1,28 +1,22 @@
-import csv
+import shelve
+import pickle
 
 
 contacts = []
 
 
-def save_contacts(filename='contacts.csv'):
-    with open(filename, 'w', newline='') as csv_file:
-        fieldnames = ['id', 'first_name', 'last_name', 'phone_number']
-        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-        # write fieldnames as the header
-        writer.writeheader()
-        # write each dict(a contact) as row in the csv file
-        writer.writerows(contacts)
+# save contacts in a shelve file
+def save_contacts(filename='contacts.db'):
+    with shelve.open(filename) as contact_db:
+        # create a key named 'contacts' in shelve file and bind all contact to it.
+        contact_db['contacts'] = contacts
 
 
-def load_contacts(filename='contacts.csv'):
-    # read contacts
-    with open(filename, 'r', newline='') as csv_file:
-        reader = csv.reader(csv_file)
-        # store content of the first row in header and go to next row
-        header = next(reader)
-
-        for row in reader:
-            contacts.append(dict(zip(header, row)))
+# read contacts from shelv file
+def load_contacts(filename='contacts.db'):
+    with shelve.open(filename) as contact_db:
+        for contact in contact_db['contacts']:
+            contacts.append(contact)
 
 
 def get_info():
@@ -81,4 +75,6 @@ def find_contact(idx):
 
 
 if __name__ == "__main__":
-    load_contacts()
+    save_contacts()
+    # load_contacts()
+    # print(contacts)
