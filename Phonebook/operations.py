@@ -1,34 +1,28 @@
+import csv
+
 
 contacts = []
 
 
-def save_contacts(filename='contacts.txt'):
-    all_contacts = ''
-
-    for contact in contacts:
-        for _, value in contact.items():
-            all_contacts += f'{value}:'
-        # remove last colon from each contact
-        all_contacts = all_contacts[:-1]
-        # add new line to each contact
-        all_contacts += '\n'
-    # write all contacts in the textfile
-    with open(filename, 'w') as contact_file:
-        contact_file.write(all_contacts)
+def save_contacts(filename='contacts.csv'):
+    with open(filename, 'w', newline='') as csv_file:
+        fieldnames = ['id', 'first_name', 'last_name', 'phone_number']
+        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+        # write fieldnames as the header
+        writer.writeheader()
+        # write each dict(a contact) as row in the csv file
+        writer.writerows(contacts)
 
 
-def load_contacts(filename='contacts.txt'):
+def load_contacts(filename='contacts.csv'):
     # read contacts
-    with open(filename, 'r') as contact_file:
-        all_contacts = contact_file.readlines()
-    
-    for contact in all_contacts:
-        cid, first, last, phone = contact.split(':')
-        contact_row = {'id': cid,  'first_name': first,
-                        'last_name': last, 'phone_number': phone.strip()}
-        # load contacts
-        contacts.append(contact_row)
-    print(contacts)
+    with open(filename, 'r', newline='') as csv_file:
+        reader = csv.reader(csv_file)
+        # store content of the first row in header and go to next row
+        header = next(reader)
+
+        for row in reader:
+            contacts.append(dict(zip(header, row)))
 
 
 def get_info():

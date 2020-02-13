@@ -86,10 +86,9 @@ def menu():
     opr.load_contacts()
 
     while True:
-        os.system('cls') if os.name == 'nt' else os.system('clear')
-        
+        os.system('clear')
         print(menu_items)
-        respond = input('\n> ')
+        respond = input('> ')
 
         if actions.get(respond) is not None:
             actions.get(respond)()  # run the action if exist
