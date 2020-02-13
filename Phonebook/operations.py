@@ -6,14 +6,14 @@ contacts = []
 
 
 # save contacts in a pickle file
-def save_contacts(filename='contacts.db'):
+def save_contacts(filename='contacts.pickle'):
     with open(filename, 'wb') as contact_db:
         # write contacts using pickle 
         pickle.dump(contacts, contact_db)
 
 
 # read contacts from pickle file
-def load_contacts(filename='contacts.db'):
+def load_contacts(filename='contacts.pickle'):
     global contacts
     with open(filename, 'rb') as contact_db:
         contacts = pickle.load(contact_db)
@@ -81,6 +81,4 @@ def find_contact(idx):
 
 
 if __name__ == "__main__":
-    save_contacts()
-    load_contacts()
-    # print(contacts)
+    pass

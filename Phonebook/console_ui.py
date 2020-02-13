@@ -8,6 +8,9 @@ messages = {'ok': 'Done :-)',
             'nf': 'Not Found :-('
             }
 
+BASEDIR = os.path.abspath(os.path.dirname(__file__))
+DBNAME = os.path.join(BASEDIR, "contacts.pickle")
+
 
 def create_ui():
     info = opr.get_info()
@@ -28,8 +31,8 @@ def display_contacts():
     for contact in opr.contacts:
         cid, first, last, phone = contact.values()
         s = (f'{cid:{align}{width-10}}'
-             f'{first:{align}{width}}'
-             f'{last:{align}{width}}'
+             f'{first.title():{align}{width}}'
+             f'{last.title():{align}{width}}'
              f'{phone:{align}{width}}')
         print(s)
 
@@ -60,7 +63,7 @@ def find_ui():
 
 
 def exit_app():
-    opr.save_contacts()
+    opr.save_contacts(DBNAME)
     print('See you later.')
     exit()
 
@@ -72,7 +75,7 @@ def menu():
         '3. Update contact\n'
         '4. Delete contact\n'
         '5. Find contact\n'
-        '6. Exit\n'
+        'q. Exit\n'
     )
     actions = {
         '1': create_ui,
@@ -80,10 +83,16 @@ def menu():
         '3': updaet_ui,
         '4': delete_ui,
         '5': find_ui,
-        '6': exit_app,
+        'q': exit_app,
     }
-    # load saved contacts from the filename:optional
-    opr.load_contacts()
+
+    # try to load data from db
+    try:
+        opr.load_contacts(DBNAME)
+    # if the db was not exist then create it
+    except FileNotFoundError as e:
+        f = open(DBNAME, 'wb')
+        f.close()
 
     while True:
         os.system('cls') if os.name == 'nt' else os.system('clear')
