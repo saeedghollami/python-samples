@@ -9,23 +9,8 @@ messages = {'ok': 'Done :-)',
             }
 
 
-def get_id():
-    try:
-        idx = int(input('Contact ID: '))
-        return int(idx)
-    except ValueError:
-        return False
-
-
-def get_info():
-    first_name = input('First Name: ')
-    last_name = input('Last Name: ')
-    phone_number = input('Phone Number: ')
-    return first_name, last_name, phone_number
-
-
 def create_ui():
-    info = get_info()
+    info = opr.get_info()
     result = messages.get('ok') if opr.create_contact(
         info) else messages.get('err')
     print(result)
@@ -34,7 +19,7 @@ def create_ui():
 def display_contacts():
     width = 20
     align = '<'
-    header = (f'{"ID": {align}{width}}'
+    header = (f'{"ID": {align}{width-10}}'
               f'{"First Name": {align}{width}}'
               f'{"Last Name": {align}{width}}'
               f'{"Phone Number": {align}{width}}')
@@ -42,7 +27,7 @@ def display_contacts():
     print('-'*len(header))
     for contact in opr.contacts:
         cid, first, last, phone = contact.values()
-        s = (f'{cid:{align}{width}}'
+        s = (f'{cid:{align}{width-10}}'
              f'{first:{align}{width}}'
              f'{last:{align}{width}}'
              f'{phone:{align}{width}}')
@@ -50,21 +35,21 @@ def display_contacts():
 
 
 def updaet_ui():
-    idx = get_id()
+    idx = opr.get_id()
     result = messages.get('ok') if opr.update_contact(
         idx) else messages.get('err')
     print(result)
 
 
 def delete_ui():
-    idx = get_id()
+    idx = opr.get_id()
     result = messages.get('ok') if opr.delete_contact(
         idx) else messages.get('err')
     print(result)
 
 
 def find_ui():
-    idx = get_id()
+    idx = opr.get_id()
     contact = opr.find_contact(idx)
     if contact:
         print('First Name:', contact.get('first_name'))
@@ -72,6 +57,12 @@ def find_ui():
         print('Phone Number:', contact.get('phone_number'))
     else:
         print(messages.get('err'))
+
+
+def exit_app():
+    opr.save_contacts()
+    print('See you later.')
+    exit()
 
 
 def menu():
@@ -89,10 +80,14 @@ def menu():
         '3': updaet_ui,
         '4': delete_ui,
         '5': find_ui,
-        '6': exit
+        '6': exit_app,
     }
+    # load saved contacts from the filename:opt
+    opr.load_contacts()
+
     while True:
-        os.system('clear')
+        os.system('cls') if os.name == 'nt' else os.system('clear')
+        
         print(menu_items)
         respond = input('\n> ')
 
