@@ -8,11 +8,28 @@ messages = {'ok': 'Done :-)',
             'nf': 'Not Found :-('
             }
 
+
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
-DBNAME = os.path.join(BASEDIR, "contacts.pickle")
+DBNAME = os.path.join(BASEDIR, "contacts.db")
+
+# get inputs from user 
+def get_info():
+    first_name = input('First Name: ')
+    last_name = input('Last Name: ')
+    phone_number = input('Phone Number: ')
+    return first_name, last_name, phone_number
 
 
-def create_ui():
+# input id from user
+def get_id():
+    try:
+        idx = int(input('Contact ID: '))
+        return int(idx)
+    except ValueError:
+        return False
+
+
+def create():
     info = opr.get_info()
     result = messages.get('ok') if opr.create_contact(
         info) else messages.get('err')
@@ -37,21 +54,21 @@ def display_contacts():
         print(s)
 
 
-def updaet_ui():
+def updaet():
     idx = opr.get_id()
     result = messages.get('ok') if opr.update_contact(
         idx) else messages.get('err')
     print(result)
 
 
-def delete_ui():
+def delete():
     idx = opr.get_id()
     result = messages.get('ok') if opr.delete_contact(
         idx) else messages.get('err')
     print(result)
 
 
-def find_ui():
+def find():
     idx = opr.get_id()
     contact = opr.find_contact(idx)
     if contact:
@@ -78,11 +95,11 @@ def menu():
         'q. Exit\n'
     )
     actions = {
-        '1': create_ui,
+        '1': create,
         '2': display_contacts,
-        '3': updaet_ui,
-        '4': delete_ui,
-        '5': find_ui,
+        '3': updaet,
+        '4': delete,
+        '5': find,
         'q': exit_app,
     }
 
