@@ -31,6 +31,20 @@ def create_table(conn):
         print(e)
 
 
+def create_contact(conn, contact):
+    """ get a contact: tuple a insert it to contact table
+
+    """
+    sql = """
+        INSERT INTO contact(first, last, phone)
+        VALUES (?, ?, ?);
+    """
+    cur = conn.cursor()
+    cur.execute(sql, contact)
+    conn.commit()
+    return cur.lastrowid
+
+
 # # save contacts in a pickle file
 # def save_contacts(filename='contacts.pickle'):
 #     with open(filename, 'wb') as contact_db:
@@ -99,3 +113,8 @@ if __name__ == "__main__":
 
     # create contact table if not exists
     create_table(conn)
+
+    # a person contact
+    c = ('Joe', "Doe", "123")
+    result = create_contact(conn, c)
+    print(result)
