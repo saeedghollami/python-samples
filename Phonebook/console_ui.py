@@ -10,7 +10,7 @@ messages = {'ok': 'Done :-)',
 
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
-DBNAME = os.path.join(BASEDIR, "contacts.db")
+DBNAME = os.path.join(BASEDIR, "phonebook.db")
 
 # get inputs from user 
 def get_info():
@@ -30,10 +30,12 @@ def get_id():
 
 
 def create():
-    info = opr.get_info()
-    result = messages.get('ok') if opr.create_contact(
-        info) else messages.get('err')
-    print(result)
+    info = get_info()
+    conn = opr.create_connection()
+    if opr.create_contact(conn, info):
+        print(messages.get('ok'))
+    else:
+        print(messages.get('err'))
 
 
 def display_contacts():
@@ -103,13 +105,6 @@ def menu():
         'q': exit_app,
     }
 
-    # try to load data from db
-    try:
-        opr.load_contacts(DBNAME)
-    # if the db was not exist then create it
-    except FileNotFoundError as e:
-        f = open(DBNAME, 'wb')
-        f.close()
 
     while True:
         os.system('cls') if os.name == 'nt' else os.system('clear')

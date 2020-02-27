@@ -39,10 +39,13 @@ def create_contact(conn, contact):
         INSERT INTO contact(first, last, phone)
         VALUES (?, ?, ?);
     """
-    cur = conn.cursor()
-    cur.execute(sql, contact)
-    conn.commit()
-    return cur.lastrowid
+    try:
+        cur = conn.cursor()
+        cur.execute(sql, contact)
+        conn.commit()
+        return cur.lastrowid
+    except sqlite3.Error as e:
+        return False
 
 
 def read_contacts(conn):
