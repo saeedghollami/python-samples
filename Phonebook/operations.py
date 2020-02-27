@@ -2,7 +2,7 @@ import sqlite3
 
 
 
-def create_connection(db_file):
+def create_connection(db_file="phonebook.db"):
     """ Create a connection to db file """
     conn = None
     try:
@@ -13,6 +13,22 @@ def create_connection(db_file):
 
     return conn
 
+
+def create_table(conn):
+    sql = """
+        CREATE TABLE IF NOT EXISTS contact(
+            id INTEGER PRIMARY KEY,
+            first TEXT NOT NULL,
+            last TEXT,
+            phone TEXT NOT NULL
+        )
+    """
+    try:
+        cur = conn.cursor()
+        cur.execute(sql)
+        return True
+    except sqlite3.Error as e:
+        print(e)
 
 
 # # save contacts in a pickle file
@@ -79,4 +95,7 @@ def create_connection(db_file):
 
 
 if __name__ == "__main__":
-    create_connection("phonebook.db")
+    conn = create_connection("phonebook.db")
+
+    # create contact table if not exists
+    create_table(conn)
