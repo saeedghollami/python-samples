@@ -4,7 +4,7 @@ import operations as opr
 
 class Messages:
     ok = 'Done :-)'
-    err = 'Error :-('
+    error = 'Error :-('
     wrong = 'Wrong choice'
     not_found = 'Not Found :-('
 
@@ -33,9 +33,9 @@ def create():
     info = get_info()
     conn = opr.create_connection()
     if opr.create_contact(conn, info):
-        print(messages.get('ok'))
+        print(Messages.ok)
     else:
-        print(messages.get('err'))
+        print(Messages.error)
 
 
 def display_contacts():
@@ -47,8 +47,8 @@ def display_contacts():
               f'{"Phone Number": {align}{width}}')
     print(header)
     print('-'*len(header))
-    for contact in opr.contacts:
-        cid, first, last, phone = contact.values()
+    conn = opr.create_connection()
+    for cid, first, last, phone in opr.read_contacts(conn):
         s = (f'{cid:{align}{width-10}}'
              f'{first.title():{align}{width}}'
              f'{last.title():{align}{width}}'
