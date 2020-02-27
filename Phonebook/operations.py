@@ -45,6 +45,14 @@ def create_contact(conn, contact):
     return cur.lastrowid
 
 
+def read_contacts(conn):
+    sql = """ SELECT * FROM contact; """
+
+    cur = conn.cursor()
+    cur.execute(sql)
+    return cur.fetchall()
+
+
 # # save contacts in a pickle file
 # def save_contacts(filename='contacts.pickle'):
 #     with open(filename, 'wb') as contact_db:
@@ -116,5 +124,8 @@ if __name__ == "__main__":
 
     # a person contact
     c = ('Joe', "Doe", "123")
-    result = create_contact(conn, c)
-    print(result)
+    # result = create_contact(conn, c)
+    # print(result)
+
+    contacts = read_contacts(conn)
+    print(contacts)
