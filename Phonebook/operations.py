@@ -63,31 +63,75 @@ def update_contact(conn, new_contact):
     """
     cur = conn.cursor()
     cur.execute(sql, new_contact)
+    conn.commit()
     return True
 
 
+def find_contact(cid):
+    """ Return contact if found
+    """
 
+    sql = """
+        SELECT first, last, phone
+        FROM contact
+        WHERE id = ?;
+    """
+    try:
+        cur = conn.cursor()
+        cur.execute(sql, str(cid))
+        return cur.fetchone()
+    except sqlite3.Error as e:
+        return None  # contact not found!
+
+
+def delete_contact(conn, cid):
+    sql = """
+        DELETE FROM contact
+        WHERE id = ?;
+    """
+    try:
+        cur = conn.cursor()
+        cur.execute(sql, str(cid))
+        return True
+    except sqlite3.Error as e:
+        return False  # contact not found!
 
 
 if __name__ == "__main__":
     conn = create_connection("phonebook.db")
 
     # create contact table if not exists
-    create_table(conn)
+    # create_table(conn)
 
     # a person contact
-    c = ('Joe', "Doe", "123")
+    # c = ('Joe', "Doe", "123")
     # result = create_contact(conn, c)
     # print(result)
 
-    print("before update")
-    contacts = read_contacts(conn)
-    print(contacts)
+    # print("before update")
+    # contacts = read_contacts(conn)
+    # print(contacts)
 
-    new_c = ('Jack', 'Doe', '234', 2)
-    r = update_contact(conn, new_c)
-    print(r)
+    # new_c = ('Jack', 'Doe', '234', 2)
+    # r = update_contact(conn, new_c)
+    # print(r)
 
-    print("After update")
-    contacts = read_contacts(conn)
-    print(contacts)
+    # print("After update")
+    # contacts = read_contacts(conn)
+    # print(contacts)
+
+    # find a contact by id
+    # found = find_contact(1)
+    # if found is not None:
+    #     print('Found')
+    #     # if found going to delete
+    #     d = delete_contact(conn, 50)
+    #     if d:
+    #         print('deleted!', d)
+    #     else:
+    #         print('not delete somthing happend', d)
+    # else:
+    #     print('Not found')
+
+    # # 
+    
