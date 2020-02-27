@@ -2,11 +2,11 @@ import os
 import operations as opr
 
 
-messages = {'ok': 'Done :-)',
-            'err': 'Error :-(',
-            'wrong': 'Wrong choice',
-            'nf': 'Not Found :-('
-            }
+class Messages:
+    ok = 'Done :-)'
+    err = 'Error :-('
+    wrong = 'Wrong choice'
+    not_found = 'Not Found :-('
 
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
