@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 
 import ponydb as db
 
@@ -10,6 +10,14 @@ app = Flask(__name__)
 def index():
 	contacts = db.read_contacts()
 	return render_template('index.html', contacts=contacts)
+
+
+@app.route('/create', methods=['GET', 'POST'])
+def create():
+	if request.method == 'POST':
+		db.create_contact(**dict(request.form))
+		return redirect(url_for('index'))
+	return redirect(url_for('index'))
 
 
 @app.route('/delete/<int:cid>')
