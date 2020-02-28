@@ -8,10 +8,19 @@
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
   </head>
   <body>
+    <header>
+      <div class="hero has-background-light">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title">Phonebook Project</h1>
+            <h2 class="subtitle">Python, Flask and Bulma all cool stuff together.</h2>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Main section -->
     <section class="section">
       <div class="container">
-        <h1 class="title">Phonebook Project</h1>
-        <p>Learn how to use python modules via simple phonebook project.</p>
         <form action="{{ url_for('create') }}" method="post">
           <div class="columns">
             <div class="column">
@@ -35,22 +44,44 @@
               <th><abbr title="First Name">First</abbr></th>
               <th><abbr title="Last Name">Last</abbr></th>
               <th><abbr title="Phone Number">Phone</abbr></th>
+              <th><abbr title="Update a contact">Update</abbr></th>
+              <th><abbr title="Delete a contact">Delete</abbr></th>
             </tr>
           </thead>
           <tfoot>
             <tr>
               <th><abbr title="Number of contacts">Count: {{contacts |count }}</abbr></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
             </tr>
           </tfoot>
+          <div class="columns">
           <tbody>
             {% for contact in contacts %}
+            <form method="post" action="{{ url_for('update') }}">
               <tr>
-                <td>{{ contact.id }}</td>
-                <td>{{ contact.first }}</td>
-                <td>{{ contact.last }}</td>
-                <td>{{ contact.phone }}</td>
-                <td><span class="icon"><i class="fas fa-pen"></i></span><a class="has-text-link" href="#">Update</a></td>
-                <td><span class="icon"><i class="fas fa-trash"></i></span><a class="has-text-danger" href="{{ url_for('delete', cid=contact.id) }}">Delete</a></td>
+                <td>
+                  <input class="input" type="text" name="cid" value="{{ contact.id }}" readonly style="border: none;">
+                </td>
+                <td>
+                  <input class="input" type="text" name="first" value="{{ contact.first }}" style="border:none;">
+                </td>
+                <td>
+                  <input class="input" type="text" name="last" value="{{ contact.last }}" style="border:none;">
+                </td>
+                <td>
+                  <input class="input" type="text" name="phone" value="{{ contact.phone }}" style="border:none;">
+                </td>
+                <td>
+                  <input class="has-text-link" type="submit" value="Update" style="background-color: none; border:0; padding:0; display:inline; cursor:pointer;">
+                </td>
+              </form>
+                <td>
+                  <a class="has-text-danger" href="{{ url_for('delete', cid=contact.id) }}">Delete</a>
+                </td>
               </tr>
             {% endfor %}
           </tbody>

@@ -20,10 +20,20 @@ def create():
 	return redirect(url_for('index'))
 
 
+@app.route('/update', methods=['GET', 'POST'])
+def update():
+	if request.method == 'POST':
+		db.update_contact(dict(request.form))
+		return redirect(url_for('index'))
+	return redirect(url_for('index'))
+
+
 @app.route('/delete/<int:cid>')
 def delete(cid):
 	db.delete_contact(cid)
 	return redirect(url_for('index'))
+
+
 
 
 if __name__ == "__main__":

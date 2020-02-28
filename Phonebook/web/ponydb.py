@@ -37,12 +37,12 @@ def find_contact(cid):
 
 
 @db_session
-def update_contact(cid, new_contact):
-	contact = Contact.get(id=cid)
+def update_contact(data):
+	contact = Contact.get(id=data.get('cid'))
 	if contact is not None:
-		contact.first = new_contact.get('first')
-		contact.last = new_contact.get('last')
-		contact.phone = new_contact.get('phone')
+		contact.first = data.get('first')
+		contact.last = data.get('last')
+		contact.phone = data.get('phone')
 		return True
 	return False
 
