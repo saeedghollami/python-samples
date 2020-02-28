@@ -35,15 +35,25 @@ def find_contact(cid):
 	else:
 		return False
 
-@db_session
-def update_contact():
-	pass
-
 
 @db_session
-def delete_contact():
-	pass
+def update_contact(cid, new_contact):
+	contact = Contact.get(id=cid)
+	if contact is not None:
+		contact.first = new_contact.get('first')
+		contact.last = new_contact.get('last')
+		contact.phone = new_contact.get('phone')
+		return True
+	return False
 
+
+@db_session
+def delete_contact(cid):
+	contact = Contact.get(id=cid)
+	if contact is not None:
+		del contact
+		return True
+	return False
 
 
 if __name__ == "__main__":
@@ -60,6 +70,25 @@ if __name__ == "__main__":
 	# 	print(contact.phone)
 
 	# find a contact by id
-	x = find_contact(10)
-	# x.exists()
-	print(x)
+	# x = find_contact(10)
+	# # x.exists()
+	# print(x)
+	
+	# # UPDATE
+	# new_contact = {'first': 'Karl', 'last': 'xy', 'phone': '123432'}
+	# u = update_contact(1, new_contact)
+	# if u:
+	# 	print('updated')
+	# else:
+	# 	print('not update')
+
+	# DELETE
+	delete_contact(1)
+
+	# 	# read contacts
+	# contacts = read_contacts()
+	# for contact in contacts:
+	# 	print(contact.first)
+	# 	print(contact.last)
+	# 	print(contact.phone)
+	
