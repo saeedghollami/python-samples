@@ -1,17 +1,45 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-	    <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/bulma/css/bulma.min.css') }}">
-		<title>Phonebook</title>
-	</head>
-	<body>
-		<h1>Hello World!</h1>
-		<p>You can reach to everything you want</p>
-		<h2>List of contacts</h2>
-		{{ contacts }}
-		{% for contact in contacts %}
-			<h3>{{ contact.first }}</h3>
-		{% endfor %}
-	</body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Bulma!</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/bulma/css/bulma.min.css') }}">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  </head>
+  <body>
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Phonebook Project</h1>
+        <p>Learn how to use python modules via simple phonebook project.</p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th><abbr title="First Name">First</abbr></th>
+              <th><abbr title="Last Name">Last</abbr></th>
+              <th><abbr title="Phone Number">Phone</abbr></th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th><abbr title="Number of contacts">Count: {{contacts |count }}</abbr></th>
+            </tr>
+          </tfoot>
+          <tbody>
+            {% for contact in contacts %}
+              <tr>
+                <td>{{ contact.id }}</td>
+                <td>{{ contact.first }}</td>
+                <td>{{ contact.last }}</td>
+                <td>{{ contact.phone }}</td>
+                <td><span class="icon"><i class="fas fa-pen"></i></span><a href="#">Update</a></td>
+                <td><span class="icon"><i class="fas fa-trash"></i></span><a href="#">Delete</a></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </body>
 </html>
