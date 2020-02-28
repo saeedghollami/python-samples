@@ -57,40 +57,5 @@ def delete_contact(cid):
 
 
 if __name__ == "__main__":
-	# create contacts
-	# create_contact('Jeff', 'Doe', '1233')
-	# create_contact('Jack', 'Doe', '23424')
-	# create_contact('Jim', 'Doe', '122343')
-	
-	# read contacts
-	# contacts = read_contacts()
-	# for contact in contacts:
-	# 	print(contact.first)
-	# 	print(contact.last)
-	# 	print(contact.phone)
-
-	# find a contact by id
-	# x = find_contact(10)
-	# # x.exists()
-	# print(x)
-	
-	# # UPDATE
-	# new_contact = {'first': 'Karl', 'last': 'xy', 'phone': '123432'}
-	# u = update_contact(1, new_contact)
-	# if u:
-	# 	print('updated')
-	# else:
-	# 	print('not update')
-
-	# DELETE
-	# x = delete_contact(1)
-	# if x: print('deleted')
-	# else: print('not deleted', x)
-
-	# 	# read contacts
-	# contacts = read_contacts()
-	# for contact in contacts:
-	# 	print(contact.first)
-	# 	print(contact.last)
-	# 	print(contact.phone)
+	pass
 	
