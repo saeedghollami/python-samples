@@ -21,22 +21,33 @@
     <!-- Main section -->
     <section class="section">
       <div class="container">
-        <form action="{{ url_for('create') }}" method="post">
-          <div class="columns">
-            <div class="column">
-              <input class="input is-primary" type="text" name="first" placeholder="First Name" autocomplete="off">
+        <div style="width: 50%">
+          <form action="{{ url_for('create') }}" method="post">
+            <div class="field">
+              <label class="label" for="first">Name</label>
+              <div class="control">
+                <input class="input is-primary" type="text" name="first" placeholder="Ex. John Doe" autocomplete="off">
+              </div>
             </div>
-            <div class="column">
-              <input class="input is-primary" type="text" name="last" placeholder="Last Name" autocomplete="off">
+            <div class="field">
+              <label class="label" for="email">Email</label>
+              <div class="control">
+                <input class="input is-primary" type="email" name="email" placeholder="Ex. johndoe@gmail.com" autocomplete="off">
+              </div>
             </div>
-            <div class="column">
-              <input class="input is-primary" type="text" name="phone" placeholder="Phone Number" autocomplete="off">
+            <div class="field">
+              <label class="label" for="phone">Phone Number</label>
+              <div class="control">
+                <input class="input is-primary" type="text" name="phone" placeholder="Ex. 90391234567" autocomplete="off">
+              </div>
             </div>
-            <div class="column">
-              <button class="button is-primary">Add</button>
+            <div class="field">
+              <div class="control">
+                <button class="button is-primary">Add</button>
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
         <table class="table">
           <thead>
             <tr>
