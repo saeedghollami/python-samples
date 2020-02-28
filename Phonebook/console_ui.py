@@ -82,18 +82,18 @@ def delete():
 
 
 def find():
-    idx = opr.get_id()
-    contact = opr.find_contact(idx)
+    cid = get_id()
+    conn = opr.create_connection()
+    contact = opr.find_contact(conn, cid)
     if contact:
-        print('First Name:', contact.get('first_name'))
-        print('Last Number:', contact.get('last_name'))
-        print('Phone Number:', contact.get('phone_number'))
+        print('First Name:', contact[0])
+        print('Last Number:', contact[1])
+        print('Phone Number:', contact[2])
     else:
-        print(messages.get('err'))
+        print(Messages.NOT_FOUND)
 
 
 def exit_app():
-    opr.save_contacts(DBNAME)
     print('See you later.')
     exit()
 
