@@ -31,7 +31,7 @@ def get_id():
 
 def create():
     info = get_info()
-    conn = opr.create_connection()
+    conn = opr.create_connection(DBNAME)
     if opr.create_contact(conn, info):
         print(Messages.OK)
     else:
@@ -47,7 +47,7 @@ def display_contacts():
               f'{"Phone Number": {align}{width}}')
     print(header)
     print('-'*len(header))
-    conn = opr.create_connection()
+    conn = opr.create_connection(DBNAME)
     for cid, first, last, phone in opr.read_contacts(conn):
         s = (f'{cid:{align}{width-10}}'
              f'{first.title():{align}{width}}'
@@ -58,7 +58,7 @@ def display_contacts():
 
 def update():
     cid = get_id()
-    conn = opr.create_connection()
+    conn = opr.create_connection(DBNAME)
     if opr.find_contact(conn, cid):
         new_contact = get_info()
         if opr.update_contact(conn, cid, new_contact):
@@ -71,7 +71,7 @@ def update():
 
 def delete():
     cid = get_id()
-    conn = opr.create_connection()
+    conn = opr.create_connection(DBNAME)
     if opr.find_contact(conn, cid):
         if opr.delete_contact(conn, cid):
             print(Messages.OK)
@@ -83,7 +83,7 @@ def delete():
 
 def find():
     cid = get_id()
-    conn = opr.create_connection()
+    conn = opr.create_connection(DBNAME)
     contact = opr.find_contact(conn, cid)
     if contact:
         print('First Name:', contact[0])
@@ -99,6 +99,11 @@ def exit_app():
 
 
 def menu():
+    # Create db 
+    conn = opr.create_connection(DBNAME)
+    # Create table 
+    opr.create_table(conn)
+
     menu_items = (
         '1. Create contact\n'
         '2. Read contacts\n'
@@ -125,10 +130,11 @@ def menu():
         if actions.get(respond) is not None:
             actions.get(respond)()  # run the action if exist
         else:
-            print(messages.get('wrong'))
+            print(Messages.WRONG)
 
         input('\nTo see menu press ENTER key...')
 
 
 if __name__ == '__main__':
+
     menu()
