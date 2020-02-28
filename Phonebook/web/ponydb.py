@@ -8,7 +8,7 @@ db = Database()
 
 class Contact(db.Entity):
     first = Required(str)
-    last = Required(str)
+    email = Required(str)
     phone = Required(str)
 
 
@@ -17,8 +17,8 @@ db.generate_mapping(create_tables=True)
 
 # add new contact
 @db_session
-def create_contact(first, last, phone):
-    c = Contact(first=first, last=last, phone=phone)
+def create_contact(first, email, phone):
+    c = Contact(first=first, email=email, phone=phone)
 
 
 @db_session
@@ -41,7 +41,7 @@ def update_contact(data):
 	contact = Contact.get(id=data.get('cid'))
 	if contact is not None:
 		contact.first = data.get('first')
-		contact.last = data.get('last')
+		contact.last = data.get('email')
 		contact.phone = data.get('phone')
 		return True
 	return False
@@ -55,10 +55,5 @@ def delete_contact(cid):
 		return True
 	return False
 
-
-if __name__ == "__main__":
-	create_contact(first='John', last='Doe', phone='1223')
-	create_contact(first='Jim', last='Harper', phone='434')
-	create_contact(first='Tom', last='Kroze', phone='324')
 
 	

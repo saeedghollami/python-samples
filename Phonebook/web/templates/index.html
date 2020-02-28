@@ -52,8 +52,8 @@
           <thead>
             <tr>
               <th>ID</th>
-              <th><abbr title="First Name">First</abbr></th>
-              <th><abbr title="Last Name">Last</abbr></th>
+              <th><abbr title="Name">Name</abbr></th>
+              <th><abbr title="Email">Email</abbr></th>
               <th><abbr title="Phone Number">Phone</abbr></th>
               <th><abbr title="Update a contact">Update</abbr></th>
               <th><abbr title="Delete a contact">Delete</abbr></th>
@@ -75,16 +75,16 @@
             <form method="post" action="{{ url_for('update') }}">
               <tr>
                 <td>
-                  <input class="input" type="text" name="cid" value="{{ contact.id }}" readonly style="border: none;">
+                  <input class="input" type="text" name="cid" value="{{ contact.id }}" readonly style="border: 0;padding:0;">
                 </td>
                 <td>
-                  <input class="input" type="text" name="first" value="{{ contact.first }}" style="border:none;">
+                  <input class="input" type="text" name="first" value="{{ contact.first }}" style="border:0;padding:0;">
                 </td>
                 <td>
-                  <input class="input" type="text" name="last" value="{{ contact.last }}" style="border:none;">
+                  <input class="input" type="email" name="email" value="{{ contact.email }}" style="border:0;padding:0;">
                 </td>
                 <td>
-                  <input class="input" type="text" name="phone" value="{{ contact.phone }}" style="border:none;">
+                  <input class="input" type="text" name="phone" value="{{ contact.phone }}" style="border:0;padding:0;">
                 </td>
                 <td>
                   <input class="has-text-link" type="submit" value="Update" style="background-color: none; border:0; padding:0; display:inline; cursor:pointer;">
