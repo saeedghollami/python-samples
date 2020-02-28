@@ -25,25 +25,39 @@
           <form action="{{ url_for('create') }}" method="post">
             <div class="field">
               <label class="label" for="first">Name</label>
-              <div class="control">
+              <div class="control has-icons-left">
                 <input class="input is-primary" type="text" name="first" placeholder="Ex. John Doe" autocomplete="off">
+                <span class="icon is-small is-left">
+                  <i class="fas fa-user"></i>
+                </span>
               </div>
             </div>
             <div class="field">
               <label class="label" for="email">Email</label>
-              <div class="control">
+              <div class="control has-icons-left">
                 <input class="input is-primary" type="email" name="email" placeholder="Ex. johndoe@gmail.com" autocomplete="off">
+                <span class="icon is-small is-left">
+                  <i class="fas fa-envelope"></i>
+                </span>
               </div>
             </div>
             <div class="field">
               <label class="label" for="phone">Phone Number</label>
-              <div class="control">
+              <div class="control has-icons-left">
                 <input class="input is-primary" type="text" name="phone" placeholder="Ex. 90391234567" autocomplete="off">
+                <span class="icon is-small is-left">
+                  <i class="fas fa-mobile-alt"></i>
+                </span>
               </div>
             </div>
             <div class="field">
-              <div class="control">
-                <button class="button is-primary">Add</button>
+              <div class="control has-icon-left">
+                <button class="button is-primary">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-user-plus"></i>
+                  </span>
+                  <span>Add Contact</span>
+                </button>
               </div>
             </div>
           </form>
