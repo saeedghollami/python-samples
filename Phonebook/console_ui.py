@@ -3,10 +3,10 @@ import operations as opr
 
 
 class Messages:
-    ok = 'Done :-)'
-    error = 'Error :-('
-    wrong = 'Wrong choice'
-    not_found = 'Not Found :-('
+    OK = 'Done :-)'
+    ERROR = 'Error :-('
+    WRONG = 'Wrong choice'
+    NOT_FOUND = 'Not Found :-('
 
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
@@ -33,9 +33,9 @@ def create():
     info = get_info()
     conn = opr.create_connection()
     if opr.create_contact(conn, info):
-        print(Messages.ok)
+        print(Messages.OK)
     else:
-        print(Messages.error)
+        print(Messages.ERROR)
 
 
 def display_contacts():
@@ -56,11 +56,17 @@ def display_contacts():
         print(s)
 
 
-def updaet():
-    idx = opr.get_id()
-    result = messages.get('ok') if opr.update_contact(
-        idx) else messages.get('err')
-    print(result)
+def update():
+    cid = get_id()
+    conn = opr.create_connection()
+    if opr.find_contact(conn, cid):
+        new_contact = get_info()
+        if opr.update_contact(conn, cid, new_contact):
+            print(Messages.OK)
+        else:
+            print(Messages.ERROR)
+    else:
+        print(Messages.NOT_FOUND)
 
 
 def delete():
@@ -99,7 +105,7 @@ def menu():
     actions = {
         '1': create,
         '2': display_contacts,
-        '3': updaet,
+        '3': update,
         '4': delete,
         '5': find,
         'q': exit_app,

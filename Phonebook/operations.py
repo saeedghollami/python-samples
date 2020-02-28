@@ -56,7 +56,7 @@ def read_contacts(conn):
     return cur.fetchall()
 
 
-def update_contact(conn, new_contact):
+def update_contact(conn, cid, new_contact):
     sql = """
         UPDATE contact
         SET first = ?,
@@ -64,13 +64,15 @@ def update_contact(conn, new_contact):
             phone = ?
         WHERE id = ?
     """
-    cur = conn.cursor()
-    cur.execute(sql, new_contact)
-    conn.commit()
-    return True
+    try:
+        cur = conn.cursor()
+        cur.execute(sql, new_contact+(cid,))
+        conn.commit()
+        return True
+    except sqlite3.Error as e:
+        return False  # contact not found!
 
-
-def find_contact(cid):
+def find_contact(conn, cid):
     """ Return contact if found
     """
 
