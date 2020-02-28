@@ -97,6 +97,7 @@ def delete_contact(conn, cid):
     try:
         cur = conn.cursor()
         cur.execute(sql, str(cid))
+        conn.commit()
         return True
     except sqlite3.Error as e:
         return False  # contact not found!

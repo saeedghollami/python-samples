@@ -70,10 +70,15 @@ def update():
 
 
 def delete():
-    idx = opr.get_id()
-    result = messages.get('ok') if opr.delete_contact(
-        idx) else messages.get('err')
-    print(result)
+    cid = get_id()
+    conn = opr.create_connection()
+    if opr.find_contact(conn, cid):
+        if opr.delete_contact(conn, cid):
+            print(Messages.OK)
+        else:
+            print(Messages.ERROR)
+    else:
+        print(Messages.NOT_FOUND)
 
 
 def find():
