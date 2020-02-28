@@ -51,7 +51,7 @@ def update_contact(cid, new_contact):
 def delete_contact(cid):
 	contact = Contact.get(id=cid)
 	if contact is not None:
-		del contact
+		contact.delete()
 		return True
 	return False
 
@@ -83,7 +83,9 @@ if __name__ == "__main__":
 	# 	print('not update')
 
 	# DELETE
-	delete_contact(1)
+	# x = delete_contact(1)
+	# if x: print('deleted')
+	# else: print('not deleted', x)
 
 	# 	# read contacts
 	# contacts = read_contacts()
