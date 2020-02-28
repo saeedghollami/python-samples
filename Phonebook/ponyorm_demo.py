@@ -15,7 +15,6 @@ class Contact(db.Entity):
 db.bind(provider='sqlite', filename='phonebook_pony.sqlite', create_db=True)
 db.generate_mapping(create_tables=True)
 
-
 # add new contact
 @db_session
 def create_contact(first, last, phone):
@@ -24,13 +23,17 @@ def create_contact(first, last, phone):
 
 @db_session
 def read_contacts():
-	return Select(c for c in Contact)[:]
+	return select(c for c in Contact)[:]
 
 
 @db_session
-def find_contact():
-	pass
-
+def find_contact(cid):
+	query = select(contact for contact in Contact if contact.id == cid)
+	
+	if query.exists():
+		return query.fetch()
+	else:
+		return False
 
 @db_session
 def update_contact():
@@ -44,8 +47,19 @@ def delete_contact():
 
 
 if __name__ == "__main__":
-	# create_contact('John', 'Doe', '123')
+	# create contacts
+	# create_contact('Jeff', 'Doe', '1233')
+	# create_contact('Jack', 'Doe', '23424')
+	# create_contact('Jim', 'Doe', '122343')
+	
+	# read contacts
+	# contacts = read_contacts()
+	# for contact in contacts:
+	# 	print(contact.first)
+	# 	print(contact.last)
+	# 	print(contact.phone)
 
-	contacts = read_contacts()
-	print(dir(contacts))
-	print(contacts)
+	# find a contact by id
+	x = find_contact(10)
+	# x.exists()
+	print(x)
