@@ -1,7 +1,4 @@
 from pony.orm import *
-
-
-
 db = Database()
 
 
@@ -12,7 +9,7 @@ class Contact(db.Entity):
     phone = Required(str)
 
 
-db.bind(provider='sqlite', filename='phonebook.sqlite', create_db=True)
+db.bind(provider='sqlite', filename='phonebook.sqlite3', create_db=True)
 db.generate_mapping(create_tables=True)
 
 # add new contact
