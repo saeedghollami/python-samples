@@ -106,7 +106,7 @@ def menu():
 
     menu_items = (
         '1. Create contact\n'
-        '2. Read contacts\n'
+        '2. Display contacts\n'
         '3. Update contact\n'
         '4. Delete contact\n'
         '5. Find contact\n'
